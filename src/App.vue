@@ -1,8 +1,12 @@
 <template>
-  <div id="app" class="p-5">
-    <h1 class="text-center">Tangram Prototype</h1>
-    <h3>Pieces in correct place: {{ score }}/{{ this.outlines.length }}</h3>
-    <p>(Currently only works with original orientations)</p>
+  <div id="app">
+    <Toolbar />
+    <p style="position: absolute; bottom: 0">(Currently only works with original orientations)</p>
+    <div class="progress-container">
+      <div class="progress-bar"
+          :style="{ width: score/outlines.length*100 + '%' }"
+      >{{ score }}/{{ outlines.length }}</div>
+    </div>
     <v-stage
       :config="stageConfig"
       class="stage"
@@ -29,11 +33,12 @@
 </template>
 
 <script>
+import Toolbar from '@/components/Toolbar/Toolbar';
 
 export default {
   name: 'App',
   components: {
-
+    Toolbar
   },
   data() {
     return {
@@ -314,13 +319,25 @@ export default {
 #app {
   width: 100vw;
   min-height: 100vh;
+  background: rgb(17, 120, 255);
 }
 .stage {
+  background: white;
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
   transition: all 200ms ease-out;
 }
 .success {
   background: rgb(52, 221, 52);
   box-shadow: 0 10px 20px rgba(52, 221, 52, 0.6);
+}
+.progress-container {
+  height: 20px; 
+  width: 100%;
+  background: rgb(235, 235, 235);
+}
+.progress-bar {
+  width: 80%;
+  height: 100%;
+  background: rgb(28, 119, 28) !important;
 }
 </style>
